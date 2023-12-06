@@ -3,7 +3,6 @@
 #include "../Advent Of Code 2023/Day1.h"
 #include "../Advent Of Code 2023/Day1.cpp"
 #include <string>
-
 TEST(FindFirstNumber, Test) {
 	EXPECT_EQ(FindFirstNumber("4nineeightseven2"), std::string(1, '4'));
 
@@ -49,7 +48,6 @@ TEST(FindLastNumber, SevenAtEnd) {
 	EXPECT_EQ(FindLastNumber("one7ninefivesevenqvpf5xmccsseven"), std::string(1, '7'));
 
 }
-
 
 
 
