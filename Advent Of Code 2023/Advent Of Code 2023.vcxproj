@@ -135,10 +135,12 @@
     <ClCompile Include="Advent Of Code 2023.cpp" />
     <ClCompile Include="Day1.cpp" />
     <ClCompile Include="Day2.cpp" />
+    <ClCompile Include="Day3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Day1.h" />
     <ClInclude Include="Day2.h" />
+    <ClInclude Include="Day3.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data\Day1_Part1-Example.txt" />

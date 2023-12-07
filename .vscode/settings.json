@@ -53,8 +53,25 @@
         "iomanip": "cpp",
         "sstream": "cpp",
         "xlocmon": "cpp",
-        "xloctime": "cpp"
+        "xloctime": "cpp",
+        "csetjmp": "cpp",
+        "csignal": "cpp",
+        "cstdarg": "cpp",
+        "cwctype": "cpp",
+        "*.ipp": "cpp",
+        "charconv": "cpp",
+        "format": "cpp",
+        "locale": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "functional": "cpp",
+        "source_location": "cpp",
+        "xhash": "cpp"
     },
     "C_Cpp.default.cppStandard": "c++20",
-    "C_Cpp.default.cStandard": "c17"
+    "C_Cpp.default.cStandard": "c17",
+    "C_Cpp.default.compilerPath": "cl.exe"
 }
