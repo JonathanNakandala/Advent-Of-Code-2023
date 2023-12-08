@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <boost/range/algorithm.hpp>
 #include <boost/algorithm/string.hpp>
-
+#include <numeric>
 struct Card
 {
     int id;
@@ -85,27 +85,31 @@ int SolvePart1(std::vector<Card> cards)
             card_points = 1;
         }
         for (int i = 2; i <= common_numbers.size(); ++i)
-        {   
+        {
             card_points = card_points * 2;
         }
         total_points += card_points;
-        
     }
     return total_points;
 }
 
-std::vector<int> CalculateWinningsCards(Card card, int max) {
+std::vector<int> CalculateWinningsCards(Card card, int max)
+{
     std::vector<int> new_winnings;
     std::vector<int> common_numbers = FindCommonNumbers(card.winning, card.your);
     int commonCount = common_numbers.size();
 
-    if (card.id + commonCount > max) {
-        for (int i = 0; i < max - card.id; ++i) {
+    if (card.id + commonCount > max)
+    {
+        for (int i = 0; i < max - card.id; ++i)
+        {
             new_winnings.push_back(card.id + i + 1);
         }
     }
-    else {
-        for (int i = 0; i < commonCount; ++i) {
+    else
+    {
+        for (int i = 0; i < commonCount; ++i)
+        {
             new_winnings.push_back(card.id + i + 1);
         }
     }
@@ -113,30 +117,34 @@ std::vector<int> CalculateWinningsCards(Card card, int max) {
     return new_winnings;
 }
 
+int SolvePart2(std::vector<Card> cards)
+{
+    std::vector<int> card_count(cards.size(), 1);
 
-
-int SolvePart2(std::vector<Card> cards) {
-    int total_points = 0;
-    for (Card card : cards)
+    for (size_t i = 0; i < cards.size(); ++i)
     {
-        int card_points = 0;
-        std::vector<int> common_numbers = FindCommonNumbers(card.winning, card.your);
+        std::vector<int> common_numbers = FindCommonNumbers(cards[i].winning, cards[i].your);
 
-        int winnings = common_numbers.size();
-
-        int max_card = cards.size();
-        if (card.id + winnings > max_card) {
-
-            card_points += (max_card - card.id);
+        for (int win = 1; win <= common_numbers.size(); ++win)
+        {
+            if (i + win < card_count.size())
+            {
+                card_count[i + win] += card_count[i];
+            }
         }
-        else {
-            card_points += winnings;
-        }
-        std::cout << "Card: " << card.id << "  : " << card_points << "\n";
-        total_points += card_points;
     }
-    return total_points;
+
+    int total_cards = std::accumulate(card_count.begin(), card_count.end(), 0);
+
+    for (size_t i = 0; i < card_count.size(); ++i)
+    {
+        std::cout << "Card " << i + 1 << ": " << card_count[i] << "\n";
+    }
+
+    std::cout << "Total cards: " << total_cards << "\n";
+    return total_cards;
 }
+
 int Day4()
 {
 
@@ -144,16 +152,14 @@ int Day4()
     std::vector<Card> data_part1 = LoadData("Data/Day4_Part1.txt");
 
     int result_example = SolvePart1(data_example);
-    std::cout << "Day 2 Part 1 Example: " << result_example << "\n";
-    
+    std::cout << "Day 4 Part 1 Example: " << result_example << "\n";
 
-        int result_part1 = SolvePart1(data_part1);
-        std::cout << "Day 2 Part 1: " << result_part1 << "\n";
-       
-        int result_part2_example = SolvePart2(data_example);
-        std::cout << "Day 2 Part 2 Example: " << result_part2_example << "\n";
-        /*
-        int result_part2 = SolvePart2(data_part1);
-        std::cout << "Day 2 Part 2: " << result_part2 << "\n"; */
+    int result_part1 = SolvePart1(data_part1);
+    std::cout << "Day 4 Part 1: " << result_part1 << "\n";
+
+    int result_part2_example = SolvePart2(data_example);
+    std::cout << "Day 4 Part 2 Example: " << result_part2_example << "\n";
+    int result_part2 = SolvePart2(data_part1);
+    std::cout << "Day 2 Part 2: " << result_part2 << "\n";
     return 0;
 }
