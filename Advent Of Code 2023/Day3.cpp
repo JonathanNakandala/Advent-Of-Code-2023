@@ -100,7 +100,6 @@ std::vector<Coord> GetPossibleSymbolLocations(Bounds bounds, Coord max)
     return locations;
 }
 
-
 std::vector<Coord> GetPossibleNumberLocations(Bounds bounds, Coord max)
 {
     std::vector<Coord> locations;
@@ -111,16 +110,18 @@ std::vector<Coord> GetPossibleNumberLocations(Bounds bounds, Coord max)
     int start_y = std::max(0, bounds.start.y - 1);
     int end_y = std::min(max.y - 1, bounds.start.y + 1);
 
-    for (int x = start_x; x <= end_x; ++x) {
-        for (int y = start_y; y <= end_y; ++y) {
-            if (!(x == bounds.start.x && y == bounds.start.y)) { 
-                locations.push_back({ x, y });
+    for (int x = start_x; x <= end_x; ++x)
+    {
+        for (int y = start_y; y <= end_y; ++y)
+        {
+            if (!(x == bounds.start.x && y == bounds.start.y))
+            {
+                locations.push_back({x, y});
             }
         }
     }
     return locations;
 }
-
 
 bool HasPartSymbol(std::vector<std::string> map_data, std::vector<Coord> possible_locations)
 {
@@ -158,38 +159,44 @@ int SolvePart1(std::vector<std::string> map_data)
     return parts_total;
 }
 
-bool IsAdjacentToGear(const Coord& gear, const Coord& location) {
+bool IsAdjacentToGear(const Coord &gear, const Coord &location)
+{
     int dx = abs(gear.x - location.x);
     int dy = abs(gear.y - location.y);
 
     return dx <= 1 && dy <= 1 && (dx + dy) > 0;
 }
 
-
-std::vector<Part> FindNumbers2(std::vector<std::string> map_data) {
+std::vector<Part> FindNumbers2(std::vector<std::string> map_data)
+{
     std::vector<Part> parts;
 
-    for (int i = 0; i < map_data.size(); ++i) {
+    for (int i = 0; i < map_data.size(); ++i)
+    {
         std::string line = map_data[i];
         int j = 0;
-        while (j < line.length()) {
-            if (std::isdigit(line[j])) {
+        while (j < line.length())
+        {
+            if (std::isdigit(line[j]))
+            {
                 int number_start = j;
                 std::string number = "";
 
-                while (j < line.length() && std::isdigit(line[j])) {
+                while (j < line.length() && std::isdigit(line[j]))
+                {
                     number += line[j];
                     j++;
                 }
 
                 Part part;
                 part.number = std::stoi(number);
-                part.position.start = { number_start, i };
-                part.position.end = { j - 1, i };
+                part.position.start = {number_start, i};
+                part.position.end = {j - 1, i};
 
                 parts.push_back(part);
             }
-            else {
+            else
+            {
                 j++;
             }
         }
@@ -197,30 +204,38 @@ std::vector<Part> FindNumbers2(std::vector<std::string> map_data) {
     return parts;
 }
 
-
-int SolvePart2(std::vector<std::string> map_data) {
+int SolvePart2(std::vector<std::string> map_data)
+{
     int result = 0;
     std::vector<Part> parts = FindNumbers2(map_data);
     std::vector<Coord> gears;
 
-    for (int i = 0; i < map_data.size(); ++i) {
-        for (int j = 0; j < map_data[i].length(); ++j) {
-            if (map_data[i][j] == '*') {
-                gears.push_back({ j, i });
+    for (int i = 0; i < map_data.size(); ++i)
+    {
+        for (int j = 0; j < map_data[i].length(); ++j)
+        {
+            if (map_data[i][j] == '*')
+            {
+                gears.push_back({j, i});
             }
         }
     }
 
-    for (const Coord& gear : gears) {
+    for (const Coord &gear : gears)
+    {
         std::set<int> adjacent_numbers;
-        for (const Part& part : parts) {
-            if (IsAdjacentToGear(gear, part.position.start) || IsAdjacentToGear(gear, part.position.end)) {
+        for (const Part &part : parts)
+        {
+            if (IsAdjacentToGear(gear, part.position.start) || IsAdjacentToGear(gear, part.position.end))
+            {
                 adjacent_numbers.insert(part.number);
             }
         }
-        if (adjacent_numbers.size() == 2) {
+        if (adjacent_numbers.size() == 2)
+        {
             int product = 1;
-            for (int num : adjacent_numbers) {
+            for (int num : adjacent_numbers)
+            {
                 product *= num;
             }
             result += product;
@@ -229,7 +244,6 @@ int SolvePart2(std::vector<std::string> map_data) {
 
     return result;
 }
-
 
 int Day3()
 {

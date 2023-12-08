@@ -5,12 +5,14 @@
 #include "Day1.h"
 #include "Day2.h"
 #include "Day3.h"
+#include "Day4.h"
 int main()
 {
     std::cout << "Hello World!\n";
     //Day1();
     //Day2();
-    Day3();
+    //Day3();
+    Day4();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
